@@ -107,22 +107,22 @@ class App
         return self::$settings;
     }
 
-    /** رابط النظام الأساسي (من الإعدادات ثم config ثم اكتشاف تلقائي) */
+    /** رابط الموقع الرئيسي (من config ثم إعدادات قاعدة البيانات ثم الاكتشاف التلقائي) */
     public static function baseUrl(): string
     {
         if (self::$baseUrl !== null) {
             return self::$baseUrl;
         }
 
-        // 1) الإعداد المخزن في قاعدة البيانات (قابل للتعديل من لوحة التحكم)
-        $configured = trim(self::setting('base_url'));
+        // 1) الرابط الثابت للموقع الرئيسي؛ يمنع بقاء قيمة قديمة من قاعدة البيانات
+        $configured = trim((string)self::config('app_url', ''));
         if ($configured !== '') {
             self::$baseUrl = rtrim($configured, '/');
             return self::$baseUrl;
         }
 
-        // 2) الرابط الثابت في ملف الإعدادات
-        $configured = trim((string)self::config('app_url', ''));
+        // 2) الإعداد المخزن في قاعدة البيانات (للتوافق مع التشغيل المرن)
+        $configured = trim(self::setting('base_url'));
         if ($configured !== '') {
             self::$baseUrl = rtrim($configured, '/');
             return self::$baseUrl;
@@ -143,6 +143,19 @@ class App
 
         self::$baseUrl = $scheme . '://' . $host . $scriptDir;
         return self::$baseUrl;
+    }
+
+    /** رابط البوابة العامة المستخدمة داخل رموز QR */
+    public static function qrBaseUrl(): string
+    {
+        $configured = trim(self::setting('qr_base_url'));
+        if ($configured === '') {
+            $configured = trim((string)self::config('qr_url', ''));
+        }
+        if ($configured === '') {
+            $configured = self::baseUrl();
+        }
+        return rtrim($configured, '/');
     }
 
     // ---------- CSRF ----------

@@ -14,8 +14,11 @@ return [
     'db_pass' => 'change_me',
 
     // ---------- النظام ----------
-    // رابط الموقع الثابت للروابط ورمز QR. اتركه فارغًا للاكتشاف التلقائي من اسم النطاق.
-    'app_url' => 'https://portal.ourum-explor.com',
+    // النطاق الرئيسي للموقع ولوحة الإدارة.
+    'app_url' => 'https://ourum-explor.com',
+
+    // النطاق العام الذي تُشفّر روابطه داخل رموز QR.
+    'qr_url' => 'https://portal.ourum-explor.com',
 
     // المنطقة الزمنية
     'timezone' => 'Asia/Riyadh',

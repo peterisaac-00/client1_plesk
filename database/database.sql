@@ -124,7 +124,8 @@ INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
 ('org_email', ''),
 ('org_phone', ''),
 ('org_address', ''),
-('base_url', 'https://portal.ourum-explor.com'),
+('base_url', 'https://ourum-explor.com'),
+('qr_base_url', 'https://portal.ourum-explor.com'),
 ('ip_logging', '1'),
 ('logo_path', '')
 ON DUPLICATE KEY UPDATE `setting_key` = VALUES(`setting_key`);

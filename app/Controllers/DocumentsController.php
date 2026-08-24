@@ -88,7 +88,7 @@ class DocumentsController extends Controller
         // إنشاء سجل المستند
         $token = Document::generateToken();
         // الرمز يشير مباشرة لملف المستند حتى يفتح فورًا عند المسح
-        $verifyUrl = url('/verify/' . $token . '/file');
+        $verifyUrl = qr_url('/verify/' . $token . '/file');
 
         $docId = Document::create([
             'doc_number' => '',
@@ -134,7 +134,7 @@ class DocumentsController extends Controller
         }
 
         // إعادة بناء الرابط دائمًا ليشير للملف مباشرة (يحدّث الرموز القديمة أيضًا)
-        $verifyUrl = url('/verify/' . $document['token'] . '/file');
+        $verifyUrl = qr_url('/verify/' . $document['token'] . '/file');
 
         $qrPath = 'qrcodes/' . $document['token'] . '.png';
         $qrFullPath = FileService::storagePath(FileService::STORAGE_QR) . '/' . $document['token'] . '.png';

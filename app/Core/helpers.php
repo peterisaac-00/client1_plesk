@@ -33,6 +33,16 @@ function url(string $path = ''): string
     return rtrim($base, '/') . '/' . ltrim($path, '/');
 }
 
+/** توليد رابط عام مخصص لرمز QR */
+function qr_url(string $path = ''): string
+{
+    $base = App::qrBaseUrl();
+    if ($path === '') {
+        return $base;
+    }
+    return rtrim($base, '/') . '/' . ltrim($path, '/');
+}
+
 /** إعادة توجيه */
 function redirect(string $path): void
 {
