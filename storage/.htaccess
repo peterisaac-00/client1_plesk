@@ -1,0 +1,11 @@
+# منع الوصول المباشر لجميع الملفات المخزنة
+# الوصول للمستندات يتم حصريًا عبر النظام (PHP) مع التحقق من الصلاحيات
+Require all denied
+
+# Apache 2.2
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>
+
+php_flag engine off
