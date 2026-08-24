@@ -20,6 +20,10 @@ return [
     // النطاق العام الذي تُشفّر روابطه داخل رموز QR.
     'qr_url' => 'https://portal.ourum-explor.com',
 
+    // جذر التخزين. في نسخة portal يمكن استخدام ../ourum-explor.com/storage
+    // حتى يقرأ الموقعان نفس الملفات بدل إنشاء مخزنين منفصلين.
+    'storage_path' => 'storage',
+
     // المنطقة الزمنية
     'timezone' => 'Asia/Riyadh',
 

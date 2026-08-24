@@ -16,7 +16,16 @@ class FileService
     /** المسار الكامل لمجلد تخزين معين */
     public static function storagePath(string $folder): string
     {
-        $path = BASE_PATH . '/storage/' . $folder;
+        // يسمح للدومين الرئيسي والـ portal باستخدام نفس مخزن الملفات.
+        // المسار يُضبط من config.php، ويظل التخزين المحلي هو fallback للتطوير.
+        $configuredRoot = trim((string)App::config('storage_path', ''));
+        if ($configuredRoot === '') {
+            $configuredRoot = BASE_PATH . '/storage';
+        } elseif ($configuredRoot[0] !== '/') {
+            $configuredRoot = BASE_PATH . '/' . ltrim($configuredRoot, '/');
+        }
+
+        $path = rtrim($configuredRoot, '/') . '/' . trim($folder, '/');
         if (!is_dir($path)) {
             mkdir($path, 0755, true);
         }
