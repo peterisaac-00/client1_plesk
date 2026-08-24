@@ -148,14 +148,20 @@ class App
     /** رابط البوابة العامة المستخدمة داخل رموز QR */
     public static function qrBaseUrl(): string
     {
+        // 1) الرابط المحدد في config؛ يمنع بقاء قيمة قديمة من قاعدة البيانات
+        $configured = trim((string)self::config('qr_url', ''));
+        if ($configured !== '') {
+            return rtrim($configured, '/');
+        }
+
+        // 2) الإعداد المخزن في قاعدة البيانات للتوافق مع التشغيل المرن
         $configured = trim(self::setting('qr_base_url'));
-        if ($configured === '') {
-            $configured = trim((string)self::config('qr_url', ''));
+        if ($configured !== '') {
+            return rtrim($configured, '/');
         }
-        if ($configured === '') {
-            $configured = self::baseUrl();
-        }
-        return rtrim($configured, '/');
+
+        // 3) الرجوع إلى رابط الموقع الرئيسي عند غياب الإعدادين
+        return rtrim(self::baseUrl(), '/');
     }
 
     // ---------- CSRF ----------
